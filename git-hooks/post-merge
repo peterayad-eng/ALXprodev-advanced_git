@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Only log if merged into 'main'
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+
+if [ "$current_branch" = "main" ]; then
+  echo "Merge detected in 'main' branch at $(date)" >> merge_log.txt
+  git log -1 --pretty=format:"Latest commit: %h - %s (%an)" >> merge_log.txt
+fi
+

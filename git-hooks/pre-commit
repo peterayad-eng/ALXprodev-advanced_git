@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Check for README.md in every directory
+missing_readme=false
+
+for dir in $(find . -type d -not -path './.git*'); do
+  if [ ! -f "$dir/README.md" ]; then
+    echo "Error: Missing README.md in $dir"
+    missing_readme=true
+  fi
+done
+
+if [ "$missing_readme" = true ]; then
+  echo "Commit blocked: Some directories are missing README.md files."
+  exit 1  # Prevent commit
+fi
+
+echo "All directories have README.md"
+exit 0  # Allow commit
+
